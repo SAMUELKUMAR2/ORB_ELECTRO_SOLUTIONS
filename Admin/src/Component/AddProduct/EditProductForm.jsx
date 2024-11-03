@@ -3,7 +3,7 @@ import axios from 'axios';
 import Navbar from "../NavbarPage.jsx"
 import { useParams } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-
+const baseUrl = import.meta.env.VITE_BASE_URL;
 const EditProductForm = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ const EditProductForm = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:3000/admin/edit/${id}`);
+        const response = await axios.get(`${baseUrl}/admin/edit/${id}`);
         setFormData(response.data);
         setLoading(false);
       } catch (err) {
@@ -62,7 +62,7 @@ const EditProductForm = () => {
 
     try {
       setLoading(true);
-      const response = await axios.put(`http://localhost:3000/admin/edit/${id}`, formDataToSend, {
+      const response = await axios.put(`${baseUrl}/admin/edit/${id}`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

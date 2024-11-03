@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Table, Dropdown, Form, InputGroup, Button } from 'react-bootstrap';
 import axios from 'axios';
 import InvoiceButton from './InvoiceButton'; // Import the InvoiceButton component
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 function OrderDetailsPage() {
   const [orders, setOrders] = useState([]);
@@ -10,7 +11,7 @@ function OrderDetailsPage() {
 
   const fetchOrder = async () => {
     try {
-      const orders = await axios.get("http://localhost:3000/api/orders");
+      const orders = await axios.get(`${baseUrl}/api/orders`);
       setOrders(orders.data);
     } catch (error) {
       console.log(error);
@@ -36,7 +37,7 @@ function OrderDetailsPage() {
       )
     );
 
-    axios.put(`http://localhost:3000/api/orders/${orderId}`, { status: newStatus });
+    axios.put(`${baseUrl}/api/orders/${orderId}`, { status: newStatus });
   };
 
   const handleDelete = async (orderId) => {
@@ -45,7 +46,7 @@ function OrderDetailsPage() {
     
        if (!confirmDelete) return; 
     try {
-      await axios.delete(`http://localhost:3000/api/orders/${orderId}`);
+      await axios.delete(`${baseUrl}/api/orders/${orderId}`);
       setOrders((prevOrders) => prevOrders.filter(order => order._id !== orderId));
     } catch (error) {
       console.log(error);

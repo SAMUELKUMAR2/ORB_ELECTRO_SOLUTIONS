@@ -4,7 +4,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
-         
+const baseUrl = import.meta.env.VITE_BASE_URL;     
 import axios from 'axios';
 
 const OrderDetails = () => {
@@ -37,7 +37,7 @@ const OrderDetails = () => {
     useEffect(() => {
         const fetchDetail = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/products/${id}`);
+                const response = await axios.get(`${baseUrl}/products/${id}`);
                 const data = response.data;
                 setForm((prevForm) => ({
                     ...prevForm,
@@ -67,7 +67,7 @@ const OrderDetails = () => {
         setLoading(true);
         const token = localStorage.getItem('token');
         try {
-           const OrderDetail = await axios.post(`http://localhost:3000/api/orders/${id}`, form,{
+           const OrderDetail = await axios.post(`${baseUrl}/api/orders/${id}`, form,{
                 headers: {
                     Authorization: `Bearer ${token}`, // Include the token in the Authorization header
                 },

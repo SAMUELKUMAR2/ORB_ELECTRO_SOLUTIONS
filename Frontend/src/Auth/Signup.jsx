@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import axios from "axios"
-import hide from "../assets/hide.png"
-import show from '../assets/show.png'
-
 import "./Signup.css"
-import { ClipLoader } from 'react-spinners';
-
+import { ClipLoader } from 'react-spinners'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for styling
-         
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 const SignupForm = () => {
 
   const navigate = useNavigate();
@@ -45,7 +42,7 @@ const SignupForm = () => {
 
     // Handle form submission logic
     try {
-      const response = await axios.post('http://localhost:3000/register', formData);
+      const response = await axios.post(`${baseUrl}/register`, formData);
      // Success message
      toast.success('User created successfully!', {
         position: "top-center", // Position at top center

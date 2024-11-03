@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import { useNavigate } from 'react-router-dom';
-
+const baseUrl = import.meta.env.VITE_BASE_URL;
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ const Products = () => {
     const fetchProducts = async () => {
       try {
         setLoading();
-        const response = await axios.get('http://localhost:3000/products/');
+        const response = await axios.get(`${baseUrl}/products/`);
         // Set default discountPercentage to 0 if not provided
         console.log(response.data);
         

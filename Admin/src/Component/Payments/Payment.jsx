@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Table, Form, InputGroup, Button ,Row, Col} from 'react-bootstrap';
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 function PaymentDetailPage() {
   const [paymentDetails, setPaymentDetails] = useState([]); // Initialize as an array
@@ -13,7 +14,7 @@ function PaymentDetailPage() {
 
   const fetchPaymentDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/payments`);
+      const response = await axios.get(`${baseUrl}/api/payments`);
       setPaymentDetails(response.data);
     } catch (error) {
       console.error("Error fetching payment details:", error);
@@ -28,7 +29,7 @@ function PaymentDetailPage() {
     if (!confirmDelete) return; 
 
     try {
-      await axios.delete(`http://localhost:3000/api/payments/${orderId}`);
+      await axios.delete(`${baseUrl}/api/payments/${orderId}`);
       setPaymentDetails((prePayment) => prePayment.filter(payment => payment._id !== orderId));
       console.log("Payment deleted successfully");
     } catch (error) {

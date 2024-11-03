@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../../Auth/AuthContext.jsx';
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 const Checkout = () => {
   const { user, logout } = useAuth();
@@ -18,7 +19,7 @@ const Checkout = () => {
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/products/${id}`);
+        const response = await axios.get(`${baseUrl}/products/${id}`);
         setProduct(response.data);
       } catch (error) {
         setError(error.message);

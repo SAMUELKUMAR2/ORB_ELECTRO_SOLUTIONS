@@ -15,6 +15,7 @@ const updateRoutes = require('./routes/profileUpdate.js')
 const app = express();
 
 // Connecting to the DataBase
+const PORT =process.env.PORT || 3000;
 const MONGO_URL =process.env.MONGO_DB_URL;
 main()
   .then(() => {
@@ -76,8 +77,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).send(message);
 });
 
-// Start the server
-const port = 3000;
-app.listen(port, () => {
-  console.log(`Server running on :${port}`);
+
+app.listen(PORT, () => {
+  console.log(`Server running on :${PORT}`);
 });

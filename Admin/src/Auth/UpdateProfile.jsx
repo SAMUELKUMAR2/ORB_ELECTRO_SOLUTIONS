@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../Auth/AuthContext';
 import axios from 'axios';
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 const ProfilePage = () => {
   const { user } = useAuth();
@@ -16,7 +17,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/user/${id}`);
+        const response = await axios.get(`${baseUrl}/api/user/${id}`);
         const { username, email, mobile } = response.data;
       
         setFormData({

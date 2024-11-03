@@ -4,6 +4,8 @@ import ThankYouImage from '../../assets/thankyou.jpg'
 import { useState } from 'react';
 import axios from 'axios';
 import InvoiceButton from '../Checkout/InvoiceButton';
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 const ThankYou = () => {
 
     const {id}= useParams();
@@ -15,7 +17,7 @@ const ThankYou = () => {
 
     const fetchOrder = async () => {
         try {
-          const order = await axios.get(`http://localhost:3000/api/orders/${id}`);
+          const order = await axios.get(`${baseUrl}/api/orders/${id}`);
           setOrder(order.data);
           
           

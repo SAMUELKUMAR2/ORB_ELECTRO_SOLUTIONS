@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+const baseUrl = import.meta.env.VITE_BASE_URL;
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,7 +18,7 @@ const Products = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/admin/products",
+          `${baseUrl}/admin/products`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -45,7 +45,7 @@ const Products = () => {
   // Handle Delete
   const handleDelete = async (id) => {
     try {
-     const response = await axios.delete(`http://localhost:3000/admin/${id}`,{
+     const response = await axios.delete(`${baseUrl}/admin/${id}`,{
       headers: {
         Authorization: `Bearer ${token}`, // Include the token in the Authorization header
     },
@@ -88,7 +88,7 @@ const Products = () => {
     const discountPercentage = prompt("Enter discount percentage:");
     if (discountPercentage !== null && !isNaN(discountPercentage)) {
       try {
-        const productDetails = await axios.patch(`http://localhost:3000/admin/${id}/discount`,
+        const productDetails = await axios.patch(`${baseUrl}/admin/${id}/discount`,
           {
             headers: {
               Authorization: `Bearer ${token}`, 

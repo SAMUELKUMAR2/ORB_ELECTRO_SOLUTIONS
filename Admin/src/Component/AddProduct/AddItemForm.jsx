@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
-
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 const AddItemForm = () => {
   const [imagePreview, setImagePreview] = useState(null);
@@ -47,7 +47,7 @@ const AddItemForm = () => {
 
     try {
       setLoading(true);
-      await axios.post('http://localhost:3000/admin/additem', formDataToSend, {
+      await axios.post(`${baseUrl}/admin/additem`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

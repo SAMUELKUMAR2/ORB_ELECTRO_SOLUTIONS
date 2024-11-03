@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import RelatedProducts from './RelatedProducts';
-
+const baseUrl = import.meta.env.VITE_BASE_URL;
 const ProductDetail = () => {
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +13,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/products/${id}`);
+        const response = await axios.get(`${baseUrl}/products/${id}`);
         setProduct(response.data);
       } catch (error) {
         setError(error.message);

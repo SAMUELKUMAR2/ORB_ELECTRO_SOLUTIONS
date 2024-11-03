@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from './AuthContext';
 import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 function Login() {
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ function Login() {
            
           console.log(formData);
           
-            const response = await axios.post('http://localhost:3000/admin/login', formData);
+            const response = await axios.post(`${baseUrl}/admin/login`, formData);
             console.log(response);
             
             // Show success toast

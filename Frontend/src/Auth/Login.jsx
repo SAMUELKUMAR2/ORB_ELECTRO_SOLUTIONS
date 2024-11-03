@@ -1,133 +1,12 @@
-// import React, { useState } from 'react';
-// import {useNavigate} from 'react-router-dom'
-// import './Signup.css'
-// import axios from 'axios';
-// import { toast, ToastContainer } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-// import { useAuth } from './AuthContext';
-// import { ClipLoader } from 'react-spinners';
 
-// const Login = () => {
-
-//   const navigate = useNavigate();
-//   const { login } = useAuth();
-
-//   const [loading, setLoading] = useState(false);
-//   const [formData, setFormData] = useState({
- 
-//     email: '',
-//     password: '',
-  
-//   });
-
-//   const [showPassword, setShowPassword] = useState(false);
-//   const [error, setError] = useState('');
-
-//   const handleChange = (e) => {
-//     setFormData({
-//       ...formData,
-//       [e.target.name]: e.target.value
-//     });
-//     setError(''); // Clear error when user types in the input
-//   };
-
-//   const handleSubmit = async(e) => {
-//     e.preventDefault();
-//     setLoading(true);
-    
-//     try {
-//       const response = await axios.post('http://localhost:3000/login', formData);
-//       console.log(response);
-      
-//      // Success message
-//      toast.success('Login successful!', {
-//         position: "top-center", // Position at top center
-//         autoClose: 1000,
-
-        
-//         onClose: () => {
-//  // Set user data in context
-//                     login(response.data.user);
-
-//           // Navigate to login page after the toast is closed
-//           navigate('/');
-//         },
-//       }) 
-//        } catch (error) {
-//       if (error.response) {
-//         toast.error(error.response.data.message || 'Something went wrong!', {
-//           position: "top-center", // Position at top center
-//         })
-//         setError(error.response.data.message || 'Something went wrong!');
-//       }
-//     }
-//     finally {
-//       setLoading(false); // Set loading to false after request is complete
-//     }
-//   };
-
-
-
-//   return (
-//     <>
-//     <div className=''>
-     
-//     <div className='' id="login-form">
-//       <h1>Sign In</h1>
-//       <form onSubmit={handleSubmit}>
-       
-
-//         <div>
-//           <label htmlFor="email">Email:</label>
-//           <input
-//             type="email"
-//             value={formData.email}
-//             onChange={handleChange}
-//             id="email"
-//             name="email"
-//             required
-//           />
-//         </div>
-
-//         <div>
-//           <label htmlFor="password">Password:</label>
-//           <input
-//             type="password"
-//             value={formData.password}
-//             onChange={handleChange}
-//             id="password"
-//             name="password"
-//             required
-//           />
-//         </div>
-
-       
-
-//         {error && <p style={{ color: '#2b14f7' }}>{error}</p>} {/* Display error message */}
-
-//         <button type="submit"  style={{background:"#0af086"}} className="btn btn-success w-100 mb-2"
-         
-//         >{loading ? <ClipLoader size={20} color="#fff" /> : 'Login'}</button>
-//      <span className='ml-3  '> Don't have an account? <a href="/signup">Register</a></span>
-//       </form>
-//     </div>
-
-//     <ToastContainer /> {/* Toast container to render the notifications */}
- 
-//     </div>
-//     </>
-//   );
-// };
-
-// export default Login;
-
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from './AuthContext';
 import { ClipLoader } from 'react-spinners';
-import axios from 'axios';
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 function Login() {
     const navigate = useNavigate();
@@ -162,7 +41,7 @@ function Login() {
            
           console.log(formData);
           
-            const response = await axios.post('http://localhost:3000/login', formData);
+            const response = await axios.post(`${baseUrl}/login`, formData);
             console.log(response);
             
             // Show success toast
