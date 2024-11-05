@@ -20,7 +20,6 @@ try {
     });
 
     await newUser.save();
-    console.log(newUser);
     
     res.status(201).json({ message: 'Client registered successfully' });
 

@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
+import { useAuth } from '../../Auth/AuthContext.jsx';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 const AddItemForm = () => {
+
+  const {user} = useAuth();
   const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const token = localStorage.getItem("token")
   const [formData, setFormData] = useState({
     itemName: '',
     itemCategory: '',
@@ -88,7 +93,7 @@ const AddItemForm = () => {
   return (
   <>
    
-    <div className="container pt-4">
+    {user?<div className="container pt-4">
      
      <div className='text-center'>
       
@@ -192,7 +197,7 @@ const AddItemForm = () => {
       </div>
       </form>
       <ToastContainer />
-    </div>
+    </div>:<div className='d-flex m-3 justify-content-center p-2 bg-danger-subtle'>Please Login To Add Products</div>}
   </>
   );
 };

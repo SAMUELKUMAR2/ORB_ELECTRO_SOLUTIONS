@@ -11,18 +11,12 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 function Login() {
     const navigate = useNavigate();
     const { login } = useAuth();
-
-    const [userType, setUserType] = useState('Client'); // Default to 'Client'
-    const [formData, setFormData] = useState({
+ const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-
-    const handleUserTypeChange = (event) => {
-        setUserType(event.target.checked ? 'Admin' : 'Client');
-    };
 
     const handleChange = (e) => {
         setFormData({
@@ -37,11 +31,9 @@ function Login() {
         setLoading(true);
 
         try {
-          console.log(userType);
-           
           console.log(formData);
           
-            const response = await axios.post(`${baseUrl}/login`, formData);
+            const response = await axios.post(`${baseUrl}/client/login`, formData);
             console.log(response);
             
             // Show success toast
@@ -78,19 +70,8 @@ function Login() {
             <div className="col-10 col-md-8 col-lg-4 shadow-lg">
                 <div className="card shadow card-mobile">
                     <div className="card-header">
-                        <h5 className="card-title">Login as {userType}</h5>
-                        <div className="form-check form-switch">
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                id="userTypeSwitch"
-                                checked={userType === 'Admin'}
-                                onChange={handleUserTypeChange}
-                            />
-                            <label className="form-check-label" htmlFor="userTypeSwitch">
-                                {userType}
-                            </label>
-                        </div>
+                        <h5 className="card-title text-center">Login as Client</h5>
+                      
                     </div>
                     <div className="card-body">
                         <form onSubmit={handleSubmit}>

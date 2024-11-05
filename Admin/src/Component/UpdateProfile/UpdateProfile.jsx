@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../Auth/AuthContext';
+import { useAuth } from '../../Auth/AuthContext';
 import axios from 'axios';
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -79,7 +79,8 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="col-8 offset-2 mt-5">
+    <>
+    {user?<div className="col-8 offset-2 mt-5">
       <h2>Update Profile</h2>
 
       {/* Username Field */}
@@ -160,7 +161,9 @@ const ProfilePage = () => {
           Update Profile Photo
         </button>
       </div>
-    </div>
+    </div>:<div className='d-flex m-3 justify-content-center p-2 bg-danger-subtle'>Please Login To Update the Profile</div>
+  }
+    </>
   );
 };
 

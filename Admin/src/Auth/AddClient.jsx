@@ -7,7 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for styling
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
-const SignupForm = () => {
+const AddClient = () => {
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -44,13 +44,13 @@ const SignupForm = () => {
     try {
       const response = await axios.post(`${baseUrl}/client/register`, formData);
      // Success message
-     toast.success('User created successfully!', {
+     toast.success('Client created successfully!', {
         position: "top-center", // Position at top center
         autoClose: 500,
         
         onClose: () => {
           // Navigate to login page after the toast is closed
-          navigate('/login');
+          navigate('/Products/clients');
         },
       }) 
       
@@ -181,4 +181,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default AddClient;

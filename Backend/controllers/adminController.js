@@ -3,6 +3,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Admin = require('../model/Admin.js');
+const Clients = require('../model/Client.js');
 const Product = require('../model/Product.js');
 const uploadToCloudinary = require('../cloudinaryUploader.js');
 
@@ -53,7 +54,7 @@ const loginAdmin = async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ id: user._id, email: user.email }, 'your_jwt_secret', { expiresIn: '2d' });
+    const token = jwt.sign({ id: user._id, email: user.email }, 'samuel', { expiresIn: '2d' });
     
     res.status(200).json({ message: 'Login successful', token, username: user.username ,id:user._id});
   } catch (error) {
@@ -69,6 +70,33 @@ const getAllProducts = async (req, res) => {
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching products', error });
+  }
+};
+
+
+// Show all CLients (Admin)
+const getAllClients = async (req, res) => {
+  try {
+    const clients = await Clients.find();
+    res.status(200).json(clients);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching products', error });
+  }
+};
+
+// Delete Client (Admin)
+const deleteClient = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deleted = await Clients.findByIdAndDelete(id);
+    if (!deleted) {
+      return res.status(404).send('Client not found');
+    }
+    res.send("Selected Client deleted Successfully");
+  } catch (error) {
+    console.log(error);
+    res.send(error);
   }
 };
 
@@ -212,6 +240,8 @@ module.exports = {
   registerAdmin,
   loginAdmin,
   getAllProducts,
+  getAllClients,
+  deleteClient,
   getProductDetail,
   addNewProduct,
   editProduct,

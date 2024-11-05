@@ -3,10 +3,13 @@ import { Container, Form, InputGroup } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useAuth } from '../Auth/AuthContext';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const Products = () => {
+
+  const {user} = useAuth();
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
@@ -118,7 +121,7 @@ const Products = () => {
 
   return (
     <>
-      <Container className=" m-auto">
+     {user? <Container className=" m-auto">
         <h2 className="text-center mb-4">Admin Panel (ALL Products)</h2>
         <div className="mx-3">
           <InputGroup className=" ">
@@ -218,7 +221,8 @@ const Products = () => {
               </div>
             ))}
         </div>
-      </Container>
+      </Container>:<div className='d-flex m-3 justify-content-center p-2 bg-danger-subtle'>Please Login To Show All Products</div>
+    }
       <ToastContainer />
     </>
   );

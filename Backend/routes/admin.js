@@ -9,6 +9,8 @@ const {
   registerAdmin,
   loginAdmin,
   getAllProducts,
+  getAllClients,
+  deleteClient,
   getProductDetail,
   addNewProduct,
   editProduct,
@@ -41,6 +43,12 @@ router.post("/login", wrapAsync(loginAdmin));
 
 // Show all products (Admin)
 router.get('/products', isLoggedIn, wrapAsync(getAllProducts));
+
+// Show all Clients (Admin)
+router.get('/clients', isLoggedIn, wrapAsync(getAllClients));
+
+// Delete selected client (Admin)
+router.delete('/clients/:id', isLoggedIn, wrapAsync(deleteClient));
 
 // Product Detail (Admin)
 router.get("/products/:id", wrapAsync(getProductDetail));

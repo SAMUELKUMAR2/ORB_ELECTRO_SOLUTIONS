@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table, Dropdown, Form, InputGroup, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { useAuth } from '../../Auth/AuthContext.jsx';
 import InvoiceButton from './InvoiceButton'; // Import the InvoiceButton component
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 function OrderDetailsPage() {
+
+  const {user} = useAuth();
   const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState('');
@@ -87,74 +90,76 @@ function OrderDetailsPage() {
   };
 
   return (
-    <Container className="mt-4" style={{ backgroundColor: '#f2f4f8', padding: '20px', borderRadius: '8px' }}>
-      <h1 className="mb-4 text-center">Order Details</h1>
-      <InputGroup className="mb-3">
-        <Form.Control
-          placeholder="Search by Customer Name"
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={searchInputStyle}
-        />
-      </InputGroup>
-      <Table striped bordered hover responsive style={{ backgroundColor: '#ffffff', borderRadius: '8px' }}>
-        <thead>
-          <tr>
-            <th style={tableHeaderStyle}>#</th>
-            <th style={tableHeaderStyle}>Customer Name</th>
-            <th style={tableHeaderStyle}>Customer Phone</th>
-            <th style={tableHeaderStyle}>Product Name</th>
-            <th style={tableHeaderStyle}>Quantity</th>
-            <th style={tableHeaderStyle}>Total Price</th>
-            <th style={tableHeaderStyle}>Address</th>
-            <th style={tableHeaderStyle}>Status</th>
-            <th style={tableHeaderStyle}>Invoice</th>
-            <th style={tableHeaderStyle}>Actions</th>
+    <>{user?<Container className="mt-4" style={{ backgroundColor: '#f2f4f8', padding: '20px', borderRadius: '8px' }}>
+    <h1 className="mb-4 text-center">Order Details</h1>
+    <InputGroup className="mb-3">
+      <Form.Control
+        placeholder="Search by Customer Name"
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={searchInputStyle}
+      />
+    </InputGroup>
+    <Table striped bordered hover responsive style={{ backgroundColor: '#ffffff', borderRadius: '8px' }}>
+      <thead>
+        <tr>
+          <th style={tableHeaderStyle}>#</th>
+          <th style={tableHeaderStyle}>Customer Name</th>
+          <th style={tableHeaderStyle}>Customer Phone</th>
+          <th style={tableHeaderStyle}>Product Name</th>
+          <th style={tableHeaderStyle}>Quantity</th>
+          <th style={tableHeaderStyle}>Total Price</th>
+          <th style={tableHeaderStyle}>Address</th>
+          <th style={tableHeaderStyle}>Status</th>
+          <th style={tableHeaderStyle}>Invoice</th>
+          <th style={tableHeaderStyle}>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredOrders.map((order, index) => (
+          <tr key={order._id}>
+            <td>{index + 1}</td>
+            <td>{order.customerName}</td>
+            <td>{order.customerPhone}</td>
+            <td>{order.productName}</td>
+            <td>{order.quantity}</td>
+            <td>{order.totalAmount}</td>
+            <td>{order.address}</td>
+            <td>
+              <Dropdown>
+                <Dropdown.Toggle
+                  variant={statuses.find(status => status.label === order.status)?.variant || 'secondary'}
+                  id="dropdown-basic"
+                  style={dropdownStyle}
+                >
+                  {order.status}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {statuses.map((status) => (
+                    <Dropdown.Item
+                      key={status.label}
+                      onClick={() => handleStatusChange(order._id, status.label)}
+                    >
+                      {status.label}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </td>
+            <td>
+              <InvoiceButton order={order} />
+            </td>
+            <td>
+              <Button variant="danger" onClick={() => handleDelete(order._id)} style={buttonStyle}>
+                Delete
+              </Button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {filteredOrders.map((order, index) => (
-            <tr key={order._id}>
-              <td>{index + 1}</td>
-              <td>{order.customerName}</td>
-              <td>{order.customerPhone}</td>
-              <td>{order.productName}</td>
-              <td>{order.quantity}</td>
-              <td>{order.totalAmount}</td>
-              <td>{order.address}</td>
-              <td>
-                <Dropdown>
-                  <Dropdown.Toggle
-                    variant={statuses.find(status => status.label === order.status)?.variant || 'secondary'}
-                    id="dropdown-basic"
-                    style={dropdownStyle}
-                  >
-                    {order.status}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {statuses.map((status) => (
-                      <Dropdown.Item
-                        key={status.label}
-                        onClick={() => handleStatusChange(order._id, status.label)}
-                      >
-                        {status.label}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </td>
-              <td>
-                <InvoiceButton order={order} />
-              </td>
-              <td>
-                <Button variant="danger" onClick={() => handleDelete(order._id)} style={buttonStyle}>
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </Container>
+        ))}
+      </tbody>
+    </Table>
+  </Container>:<div className='d-flex m-3 justify-content-center p-2 bg-danger-subtle'>Please Login To Show Order Details</div>
+  }
+  </>
   );
 }
 

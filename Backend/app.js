@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
   res.send('Server Started');
 });
 
-app.use('/', clientRoutes);
+app.use('/client', clientRoutes);
 
 app.use('/admin',adminRoutes);
 

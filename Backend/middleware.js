@@ -12,7 +12,7 @@ const isLoggedIn = (req, res, next) => {
 
     try {
         // Verify the token
-        const decoded = jwt.verify(token, 'your_jwt_secret'); // Use your JWT secret
+        const decoded = jwt.verify(token, 'samuel'); // Use your JWT secret
         req.user = decoded; // Attach the decoded token payload to the request object
         next(); // Proceed to the next middleware or route handler
     } catch (error) {

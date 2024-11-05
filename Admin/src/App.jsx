@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from "./auth/AuthContext";
 import Signup from "./auth/Signup";
 import Login from './Auth/Login';
-import UpdateProfile from './Auth/UpdateProfile';
 
 import Navbar from "./Component/NavbarPage";
 import Footer from './Component/Footer'
@@ -13,6 +12,9 @@ import ProductEditForm from "./Component/AddProduct/EditProductForm";
 import OrderDetailsPage from "./Component/Orders/OrderDetailsPage";
 import InvoicePage from "./Component/Orders/InvoiceButton";
 import PaymentDetailPage from './Component/Payments/Payment';
+import AllClients from './Component/AllClients/AllClients';
+import AddClient from './Auth/AddClient'
+import UpdateProfile from './Component/UpdateProfile/UpdateProfile';
 
 function App() {
 
@@ -30,7 +32,6 @@ function App() {
 
         <Route path="/admin/login" element = {<Login />} />
         <Route path="/admin/register" element = {<Signup />} />
-        <Route path="/admin/profile" element = {<UpdateProfile />} />
 
 
         {/* Add New Item */}
@@ -48,6 +49,9 @@ function App() {
     {/* Payment Details */}
     <Route path="/products/payments" element = {<PaymentDetailPage />} />
 
+    <Route path="/Products/clients" element = {<AllClients />} />
+    <Route path="/Products/clients/client" element = {<AddClient />} />
+    <Route path="/admin/profile" element = {<UpdateProfile />} />
       </Routes>
       <div>
       <Footer />  
